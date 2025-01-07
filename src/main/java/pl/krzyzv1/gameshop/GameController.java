@@ -41,8 +41,11 @@ public class GameController {
 		Game game= gameRepository.getById(id);
 		
 		if (game !=null) {
+			game.setQuantity(updatedGame.getQuantity());
 			game.setName(updatedGame.getName());
-			game.setRating(updatedGame.getRating());
+			game.setPrice(updatedGame.getPrice());
+			game.setImgUrl(updatedGame.getImgUrl());
+			
 			
 			gameRepository.update(game);
 			
@@ -58,8 +61,10 @@ public class GameController {
 	    Game game = gameRepository.getById(id);
 
 	    if (game != null) {
+	        if (updatedGame.getQuantity() != null) game.setQuantity(updatedGame.getQuantity());
 	        if (updatedGame.getName() != null) game.setName(updatedGame.getName());
-	        if (updatedGame.getRating() > 0) game.setRating(updatedGame.getRating());
+	        if (updatedGame.getPrice() != null) game.setPrice(updatedGame.getPrice());
+	        if (updatedGame.getImgUrl() != null) game.setImgUrl(updatedGame.getImgUrl());
 
 	        gameRepository.update(game);
 
@@ -74,7 +79,3 @@ public class GameController {
 		return gameRepository.delete(id);
 	}
 }
-
-
-
-

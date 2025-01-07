@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Game{
-	private int id;
+	private Integer id;
+	private Integer quantity;
 	private String name;
-	private int rating;
+	private Double price;
+	private String imgUrl;
 }

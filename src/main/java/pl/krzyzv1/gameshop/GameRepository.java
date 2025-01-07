@@ -14,36 +14,32 @@ public class GameRepository {
 	JdbcTemplate jdbcTemplate;
 	
 	public List<Game> getAll(){
-		return jdbcTemplate.query("SELECT id,name,rating FROM game",
+		return jdbcTemplate.query("SELECT id,quantity,name,price,imgUrl FROM game",
 				BeanPropertyRowMapper.newInstance(Game.class));
 	}
 	
 	public Game getById(int id) {
-	return jdbcTemplate.queryForObject("SELECT id,name,rating FROM game WHERE " +
+	return jdbcTemplate.queryForObject("SELECT id,quantity,name,price,imgUrl FROM game WHERE " +
 	"id = ?", BeanPropertyRowMapper.newInstance(Game.class), id);
 		}
 
 	public int save(List<Game> games) {
 		games.forEach(game -> jdbcTemplate
 				.update("INSERT INTO game(name,rating) VALUES(?, ?)",
-						game.getName(), game.getRating()
+						game.getQuantity(), game.getName(), game.getPrice(),
+						game.getImgUrl()
 						));
 
 		return 1;
 	}
 	
 	public int update(Game game) {
-		return jdbcTemplate.update("UPDATE game SET name=?, rating=? WHERE id=?",
-			game.getName(), game.getRating(), game.getId());
+		return jdbcTemplate.update("UPDATE game SET quantity=?, name=?, price=?, imgUrl=? WHERE id=?",
+				game.getQuantity(), game.getName(), game.getPrice(),
+				game.getImgUrl(), game.getId());
 	}
 	
 	public int delete(int id) {
 		return jdbcTemplate.update("DELETE FROM game WHERE id=?", id);
 	}
 }
-
-
-
-
-
-

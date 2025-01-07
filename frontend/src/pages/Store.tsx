@@ -1,18 +1,35 @@
-import { Col, Row } from "react-bootstrap"
+import React, { useEffect, useState } from "react";
 import { StoreItem } from "../components/StoreItem"
-import storeItems from "../data/items.json"
+import { getGames } from "../api/GameService";
+
+type Game = {
+  id: number;
+  name: string;
+  price: number; // Cena w JSON powinna odpowiadać price
+  imgUrl: string;
+};
 
 export function Store() {
+  const [games, setGames] = useState<Game[]>([]);
+
+  useEffect(() => {
+    async function fetchGames() {
+      try {
+        const data = await getGames();
+        setGames(data);
+      } catch (error) {
+        console.error("Failed to fetch games:", error);
+      }
+    }
+
+    fetchGames();
+  }, []);
+
   return (
-    <>
-      <h1>Store</h1>
-      <Row md={2} xs={1} lg={3} className="g-3">
-        {storeItems.map(item => (
-          <Col key={item.id}>
-            <StoreItem {...item} />
-          </Col>
-        ))}
-      </Row>
-    </>
-  )
+    <div className="d-flex flex-wrap gap-3">
+      {games.map(game => (
+        <StoreItem key={game.id} {...game} />
+      ))}
+    </div>
+  );
 }
