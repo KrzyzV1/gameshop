@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { StoreItem } from "../components/StoreItem"
+import { Col, Row } from "react-bootstrap";
+import { StoreItem } from "../components/StoreItem";
 import { getGames } from "../api/GameService";
 
 type Game = {
   id: number;
   name: string;
-  price: number; // Cena w JSON powinna odpowiadać price
+  price: number;
   imgUrl: string;
 };
 
@@ -26,10 +27,15 @@ export function Store() {
   }, []);
 
   return (
-    <div className="d-flex flex-wrap gap-3">
-      {games.map(game => (
-        <StoreItem key={game.id} {...game} />
-      ))}
+    <div>
+      <h1>Store</h1>
+      <Row md={3} xs={1} lg={4} className="g-4">
+        {games.map(game => (
+          <Col key={game.id}>
+            <StoreItem {...game} />
+          </Col>
+        ))}
+      </Row>
     </div>
   );
-}
+  }

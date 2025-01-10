@@ -1,5 +1,7 @@
 package pl.krzyzv1.gameshop;
 
+import java.math.BigDecimal;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +13,6 @@ public class Game{
 	private Integer id;
 	private Integer quantity;
 	private String name;
-	private Double price;
+	private BigDecimal price;
 	private String imgUrl;
 }

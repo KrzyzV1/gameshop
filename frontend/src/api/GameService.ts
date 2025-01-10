@@ -5,16 +5,16 @@ export async function getGames() {
   if (!response.ok) {
     throw new Error("Failed to fetch games");
   }
-  return response.json();
+  return response.json(); // Oczekiwany wynik: [{ id, quantity, name, price, imgUrl }]
 }
 
-export async function addGame(game: { name: string; rating: number }) {
+export async function addGame(game: { quantity: number; name: string; price: number; imgUrl: string }) {
   const response = await fetch(API_BASE_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify([game]),
+    body: JSON.stringify(game),
   });
   if (!response.ok) {
     throw new Error("Failed to add game");
@@ -22,7 +22,7 @@ export async function addGame(game: { name: string; rating: number }) {
   return response.json();
 }
 
-export async function updateGame(id: number, game: { name: string; rating: number }) {
+export async function updateGame(id: number, game: { quantity: number; name: string; price: number; imgUrl: string }) {
   const response = await fetch(`${API_BASE_URL}/${id}`, {
     method: "PUT",
     headers: {

@@ -25,7 +25,7 @@ public class GameRepository {
 
 	public int save(List<Game> games) {
 		games.forEach(game -> jdbcTemplate
-				.update("INSERT INTO game(name,rating) VALUES(?, ?)",
+				.update("INSERT INTO game(quantity,name,price,imgUrl) VALUES(?, ?, ?, ?)",
 						game.getQuantity(), game.getName(), game.getPrice(),
 						game.getImgUrl()
 						));
