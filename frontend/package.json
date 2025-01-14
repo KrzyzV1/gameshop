@@ -1,5 +1,5 @@
 {
-  "name": "shopping-cart",
+  "name": "gameshop",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -20,5 +20,7 @@
     "@vitejs/plugin-react": "^1.3.0",
     "typescript": "^4.6.3",
     "vite": "^2.9.9"
-  }
+  },
+  "proxy": "http://localhost:8080"
+
 }

@@ -12,7 +12,7 @@ type StoreItem = {
   id: number;
   name: string;
   price: number;
-  imgUrl: string; // URL do obrazka w folderze public
+  imgUrl: string;
 };
 
 export function ShoppingCart({ isOpen }: ShoppingCartProps) {
@@ -22,7 +22,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
   useEffect(() => {
     async function fetchStoreItems() {
       try {
-        const response = await fetch("http://localhost:8080/games"); // Twój backend
+        const response = await fetch("/games");
         const data = await response.json();
         setStoreItems(data);
       } catch (error) {
@@ -40,9 +40,18 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
       </Offcanvas.Header>
       <Offcanvas.Body>
         <Stack gap={3}>
-          {cartItems.map((cartItem) => {
-            const item = storeItems.find((i) => i.id === cartItem.id);
-            return item ? <CartItem key={cartItem.id} {...cartItem} /> : null;
+		{cartItems.map((cartItem) => {
+		  const item = storeItems.find((i) => i.id === cartItem.id);
+		  return item ? (
+		    <CartItem
+		      key={cartItem.id}
+		      id={item.id}
+		      name={item.name}
+		      price={item.price}
+		      imgUrl={item.imgUrl}
+		      quantity={cartItem.quantity}
+		    />
+		  ) : null;
           })}
           <div className="ms-auto fw-bold fs-5">
             Total{" "}
