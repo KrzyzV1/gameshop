@@ -28,7 +28,6 @@ export function Store() {
 
   return (
     <div>
-      <h1>Store</h1>
       <Row md={3} xs={1} lg={4} className="g-4">
         {games.map(game => (
           <Col key={game.id}>

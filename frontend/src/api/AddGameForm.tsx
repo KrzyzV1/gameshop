@@ -1,32 +1,17 @@
 import React, { useState } from "react";
-import { addGame } from "./GameService";
+import { addGame } from "../api/GameService";
 
 export function AddGameForm() {
   const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState<number | "">("");
-  const [price, setPrice] = useState<number | "">("");
-  const [imgUrl, setImgUrl] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [rating, setRating] = useState<number | "">("");
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    setError(null);
-
     try {
-      await addGame({
-        name,
-        quantity: Number(quantity),
-        price: Number(price),
-        imgUrl,
-      });
+      await addGame({ name, rating: Number(rating) });
       alert("Game added successfully!");
-      setName("");
-      setQuantity("");
-      setPrice("");
-      setImgUrl("");
-    } catch (err) {
-      console.error("Failed to add game:", err);
-      setError("Failed to add game. Please try again.");
+    } catch (error) {
+      console.error("Failed to add game:", error);
     }
   }
 
@@ -42,33 +27,14 @@ export function AddGameForm() {
         />
       </div>
       <div>
-        <label>Quantity</label>
+        <label>Rating</label>
         <input
           type="number"
-          value={quantity}
-          onChange={(e) => setQuantity(e.target.value === "" ? "" : Number(e.target.value))}
+          value={rating}
+          onChange={(e) => setRating(e.target.value === "" ? "" : Number(e.target.value))}
           required
         />
       </div>
-      <div>
-        <label>Price</label>
-        <input
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value === "" ? "" : Number(e.target.value))}
-          required
-        />
-      </div>
-      <div>
-        <label>Image URL</label>
-        <input
-          type="text"
-          value={imgUrl}
-          onChange={(e) => setImgUrl(e.target.value)}
-          required
-        />
-      </div>
-      {error && <div style={{ color: "red" }}>{error}</div>}
       <button type="submit">Add Game</button>
     </form>
   );

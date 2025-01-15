@@ -40,18 +40,9 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
       </Offcanvas.Header>
       <Offcanvas.Body>
         <Stack gap={3}>
-		{cartItems.map((cartItem) => {
-		  const item = storeItems.find((i) => i.id === cartItem.id);
-		  return item ? (
-		    <CartItem
-		      key={cartItem.id}
-		      id={item.id}
-		      name={item.name}
-		      price={item.price}
-		      imgUrl={item.imgUrl}
-		      quantity={cartItem.quantity}
-		    />
-		  ) : null;
+          {cartItems.map((cartItem) => {
+            const item = storeItems.find((i) => i.id === cartItem.id);
+            return item ? <CartItem key={cartItem.id} {...cartItem} /> : null;
           })}
           <div className="ms-auto fw-bold fs-5">
             Total{" "}

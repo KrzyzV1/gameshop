@@ -1,28 +1,21 @@
-const API_BASE_URL = "/games";
-
-const getAuthHeaders = () => ({
-  Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-  "Content-Type": "application/json",
-});
+const API_BASE_URL = "http://localhost:8080/games";
 
 export async function getGames() {
-  const response = await fetch(API_BASE_URL, {
-    headers: getAuthHeaders(),
-  });
-
+  const response = await fetch(API_BASE_URL);
   if (!response.ok) {
     throw new Error("Failed to fetch games");
   }
-  return response.json();
+  return response.json(); // Oczekiwany wynik: [{ id, quantity, name, price, imgUrl }]
 }
 
 export async function addGame(game: { quantity: number; name: string; price: number; imgUrl: string }) {
   const response = await fetch(API_BASE_URL, {
     method: "POST",
-    headers: getAuthHeaders(),
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(game),
   });
-
   if (!response.ok) {
     throw new Error("Failed to add game");
   }
@@ -32,10 +25,11 @@ export async function addGame(game: { quantity: number; name: string; price: num
 export async function updateGame(id: number, game: { quantity: number; name: string; price: number; imgUrl: string }) {
   const response = await fetch(`${API_BASE_URL}/${id}`, {
     method: "PUT",
-    headers: getAuthHeaders(),
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(game),
   });
-
   if (!response.ok) {
     throw new Error("Failed to update game");
   }
@@ -45,9 +39,7 @@ export async function updateGame(id: number, game: { quantity: number; name: str
 export async function deleteGame(id: number) {
   const response = await fetch(`${API_BASE_URL}/${id}`, {
     method: "DELETE",
-    headers: getAuthHeaders(),
   });
-
   if (!response.ok) {
     throw new Error("Failed to delete game");
   }
