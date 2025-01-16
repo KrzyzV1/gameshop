@@ -11,7 +11,7 @@ type StoreItem = {
 };
 
 export default function PaymentPage() {
-  const { cartItems } = useShoppingCart();
+  const { cartItems, clearCart } = useShoppingCart(); // Dodano clearCart
   const navigate = useNavigate();
   const [storeItems, setStoreItems] = useState<StoreItem[]>([]);
 
@@ -31,6 +31,7 @@ export default function PaymentPage() {
 
   const handlePayment = () => {
     alert("Płatność zrealizowana! Dziękujemy za zakupy.");
+    clearCart(); // Opróżnij koszyk
     navigate("/"); // Powrót na stronę główną
   };
 
