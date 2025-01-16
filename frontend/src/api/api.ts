@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_BASE_URL = '/games';
+const API_BASE_URL = "/";
 
 // Pobieranie listy gier
 export const fetchGames = async () => {
@@ -9,13 +9,19 @@ export const fetchGames = async () => {
 };
 
 // Dodawanie nowej gry
-export const addGame = async (game) => {
+export const addGame = async (game: any) => {
     const response = await axios.post(API_BASE_URL, [game]);
     return response.data;
 };
 
 // Usuwanie gry
-export const deleteGame = async (id) => {
+export const deleteGame = async (id: any) => {
     const response = await axios.delete(`${API_BASE_URL}/${id}`);
     return response.data;
+};
+
+// Logowanie
+export const login = async (credentials: { username: string; password: string }) => {
+   const response = await axios.post('/auth/login', credentials);
+   return response.data;
 };
