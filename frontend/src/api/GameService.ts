@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:8080/games";
+const API_BASE_URL = "/games";
 
 export async function getGames() {
   const response = await fetch(API_BASE_URL);

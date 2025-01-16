@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/games';
+const API_BASE_URL = '/games';
 
 // Pobieranie listy gier
 export const fetchGames = async () => {

@@ -40,12 +40,38 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
       </Offcanvas.Header>
       <Offcanvas.Body>
         <Stack gap={3}>
-          {cartItems.map((cartItem) => {
-            const item = storeItems.find((i) => i.id === cartItem.id);
-            return item ? <CartItem key={cartItem.id} {...cartItem} /> : null;
-          })}
-          <div className="ms-auto fw-bold fs-5">
-            Total{" "}
+		{cartItems.map((cartItem) => {
+		  const item = storeItems.find((i) => i.id === cartItem.id);
+		  if (!item) return null;
+
+		  return (
+		    <div
+		      key={cartItem.id}
+		      className="d-flex align-items-center justify-content-between"
+		    >
+		      {/* Obraz produktu */}
+		      <img
+		        src={item.imgUrl}
+		        alt={item.name}
+		        style={{ width: "50px", height: "50px", objectFit: "cover" }}
+		        className="rounded"
+		      />
+		      {/* Szczegóły */}
+		      <div className="me-auto ms-3">
+		        <div>{item.name}</div>
+		        <div className="text-muted" style={{ fontSize: ".85rem" }}>
+		          {cartItem.quantity} x {formatCurrency(item.price)}
+		        </div>
+		      </div>
+		      {/* Łączna cena */}
+		      <div>{formatCurrency(item.price * cartItem.quantity)}</div>
+		    </div>
+		  );
+		})}
+
+          {/* Całkowita cena */}
+          <div className="ms-auto fw-bold fs-5 mt-3">
+            Total:{" "}
             {formatCurrency(
               cartItems.reduce((total, cartItem) => {
                 const item = storeItems.find((i) => i.id === cartItem.id);
