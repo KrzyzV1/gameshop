@@ -1,7 +1,6 @@
-import { Offcanvas, Stack } from "react-bootstrap";
+import { Offcanvas, Stack, Button } from "react-bootstrap";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { formatCurrency } from "../utilities/formatCurrency";
-import { CartItem } from "./CartItem";
 import React, { useEffect, useState } from "react";
 
 type ShoppingCartProps = {
@@ -16,7 +15,13 @@ type StoreItem = {
 };
 
 export function ShoppingCart({ isOpen }: ShoppingCartProps) {
-  const { closeCart, cartItems } = useShoppingCart();
+  const {
+    closeCart,
+    cartItems,
+    increaseCartQuantity,
+    decreaseCartQuantity,
+    removeFromCart,
+  } = useShoppingCart();
   const [storeItems, setStoreItems] = useState<StoreItem[]>([]);
 
   useEffect(() => {
@@ -33,6 +38,10 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
     fetchStoreItems();
   }, []);
 
+  const clearCart = () => {
+    cartItems.forEach((item) => removeFromCart(item.id));
+  };
+
   return (
     <Offcanvas show={isOpen} onHide={closeCart} placement="end">
       <Offcanvas.Header closeButton>
@@ -40,36 +49,56 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
       </Offcanvas.Header>
       <Offcanvas.Body>
         <Stack gap={3}>
-		{cartItems.map((cartItem) => {
-		  const item = storeItems.find((i) => i.id === cartItem.id);
-		  if (!item) return null;
+          {cartItems.map((cartItem) => {
+            const item = storeItems.find((i) => i.id === cartItem.id);
+            if (!item) return null;
 
-		  return (
-		    <div
-		      key={cartItem.id}
-		      className="d-flex align-items-center justify-content-between"
-		    >
-		      {/* Obraz produktu */}
-		      <img
-		        src={item.imgUrl}
-		        alt={item.name}
-		        style={{ width: "50px", height: "50px", objectFit: "cover" }}
-		        className="rounded"
-		      />
-		      {/* Szczegóły */}
-		      <div className="me-auto ms-3">
-		        <div>{item.name}</div>
-		        <div className="text-muted" style={{ fontSize: ".85rem" }}>
-		          {cartItem.quantity} x {formatCurrency(item.price)}
-		        </div>
-		      </div>
-		      {/* Łączna cena */}
-		      <div>{formatCurrency(item.price * cartItem.quantity)}</div>
-		    </div>
-		  );
-		})}
+            return (
+              <div
+                key={cartItem.id}
+                className="d-flex align-items-center justify-content-between"
+              >
+                <img
+                  src={item.imgUrl}
+                  alt={item.name}
+                  style={{ width: "50px", height: "50px", objectFit: "cover" }}
+                  className="rounded"
+                />
+                <div className="me-auto ms-3">
+                  <div>{item.name}</div>
+                  <div className="text-muted" style={{ fontSize: ".85rem" }}>
+                    {cartItem.quantity} x {formatCurrency(item.price)}
+                  </div>
+                </div>
+                <div className="d-flex align-items-center">
+                  <Button
+                    variant="outline-secondary"
+                    size="sm"
+                    onClick={() => decreaseCartQuantity(cartItem.id)}
+                  >
+                    -
+                  </Button>
+                  <span className="mx-2">{cartItem.quantity}</span>
+                  <Button
+                    variant="outline-secondary"
+                    size="sm"
+                    onClick={() => increaseCartQuantity(cartItem.id)}
+                  >
+                    +
+                  </Button>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    className="ms-3"
+                    onClick={() => removeFromCart(cartItem.id)}
+                  >
+                    ×
+                  </Button>
+                </div>
+              </div>
+            );
+          })}
 
-          {/* Całkowita cena */}
           <div className="ms-auto fw-bold fs-5 mt-3">
             Total:{" "}
             {formatCurrency(
@@ -79,6 +108,16 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
               }, 0)
             )}
           </div>
+          <Button
+            variant="outline-danger"
+            className="mt-3"
+            onClick={clearCart}
+          >
+            Opróżnij koszyk
+          </Button>
+          <Button variant="primary" className="mt-3">
+            Przejdź do płatności
+          </Button>
         </Stack>
       </Offcanvas.Body>
     </Offcanvas>
