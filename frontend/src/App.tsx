@@ -4,6 +4,7 @@ import { Store } from "./pages/Store"
 import { About } from "./pages/About"
 import { Navbar } from "./components/Navbar"
 import { ShoppingCartProvider } from "./context/ShoppingCartContext"
+import PaymentPage from "./pages/PaymentPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Store />} />
           <Route path="/about" element={<About />} />
+		  <Route path="/payment" element={<PaymentPage />} />
         </Routes>
       </Container>
     </ShoppingCartProvider>

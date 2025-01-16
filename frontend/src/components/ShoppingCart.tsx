@@ -2,6 +2,7 @@ import { Offcanvas, Stack, Button } from "react-bootstrap";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { formatCurrency } from "../utilities/formatCurrency";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 type ShoppingCartProps = {
   isOpen: boolean;
@@ -23,6 +24,8 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
     removeFromCart,
   } = useShoppingCart();
   const [storeItems, setStoreItems] = useState<StoreItem[]>([]);
+  
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchStoreItems() {
@@ -115,9 +118,13 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
           >
             Opróżnij koszyk
           </Button>
-          <Button variant="primary" className="mt-3">
-            Przejdź do płatności
-          </Button>
+		  <Button
+		    variant="primary"
+		    className="mt-3"
+		    onClick={() => navigate("/payment")}
+		  >
+		    Przejdź do płatności
+		  </Button>
         </Stack>
       </Offcanvas.Body>
     </Offcanvas>
