@@ -1,16 +1,22 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext"; // Import kontekstu
 import { login } from "../api/api";
 
 export function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+  const { login: setLoggedIn } = useAuth(); // Funkcja do ustawienia logowania
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const response = await login({ username, password });
-      setMessage(response);
+      await login({ username, password });
+      setMessage("Zalogowano pomyślnie");
+      setLoggedIn(); // Ustawienie stanu globalnego
+      navigate("/"); // Przekierowanie
     } catch (error) {
       setMessage("Wystąpił błąd podczas logowania");
     }
