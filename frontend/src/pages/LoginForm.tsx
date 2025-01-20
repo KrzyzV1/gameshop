@@ -9,7 +9,7 @@ export function LoginForm() {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const { login: setLoggedIn } = useAuth(); // Funkcja do ustawienia logowania w AuthContext
-  
+
   const loginUser = async (username: string, password: string) => {
     try {
       const response = await fetch("/auth/login", {
@@ -20,9 +20,9 @@ export function LoginForm() {
 
       if (response.ok) {
         const data = await response.json();
-        setLoggedIn(data.role); // Ustawienie stanu logowania za pomocą funkcji z kontekstu
+        setLoggedIn(data.role); // Przekazanie roli do kontekstu
         alert("Zalogowano pomyślnie");
-        navigate("/"); // Przejdź na stronę główną lub dowolną inną
+        navigate("/"); // Przekierowanie na stronę główną
       } else {
         alert("Nieprawidłowe dane logowania");
       }
@@ -32,12 +32,10 @@ export function LoginForm() {
     }
   };
 
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // Zapobiega przeładowaniu strony
     await loginUser(username, password); // Wywołanie funkcji logowania
   };
-
 
   return (
     <div className="container mt-5">
