@@ -22,6 +22,12 @@ export const deleteGame = async (id: any) => {
 
 // Logowanie
 export const login = async (credentials: { username: string; password: string }) => {
-   const response = await axios.post('/auth/login', credentials);
-   return response.data;
+  const response = await axios.post('/auth/login', credentials);
+  if (response.status !== 200) {
+    throw new Error("Nieprawidłowe dane logowania");
+  }
+  return {
+    token: response.data.token, // Jeśli backend zwraca token
+    role: response.data.role,   // Zakładamy, że backend zwraca rolę w odpowiedzi
+  };
 };

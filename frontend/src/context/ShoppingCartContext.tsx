@@ -80,6 +80,28 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     });
   }
 
+  function addToCart(id: number) {
+    if (!isLoggedIn) {
+      alert("Musisz się zalogować, aby dodać produkt do koszyka.");
+      return;
+    }
+
+    setCartItems((currItems) => {
+      if (currItems.find((item) => item.id === id) == null) {
+        return [...currItems, { id, quantity: 1 }];
+      } else {
+        return currItems.map((item) => {
+          if (item.id === id) {
+            return { ...item, quantity: item.quantity + 1 };
+          } else {
+            return item;
+          }
+        });
+      }
+    });
+  }
+
+  
   function removeFromCart(id: number) {
     setCartItems((currItems) => {
       return currItems.filter((item) => item.id !== id);
@@ -98,6 +120,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         decreaseCartQuantity,
         removeFromCart,
         clearCart,
+        addToCart,
         openCart,
         closeCart,
         cartItems,

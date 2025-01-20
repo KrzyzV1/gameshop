@@ -1,9 +1,10 @@
 package gameshop.sterowniki;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
+import java.util.Optional;
+
 public interface UserRepository extends JpaRepository<Users, Integer> {
-    Users findByUsername(String username); // Znajdź użytkownika po nazwie użytkownika
+    Optional<Users> findByUsername(String username); // Znajduje użytkownika po nazwie użytkownika
+    Optional<Users> findByUsernameAndPassword(String username, String password); // Znajduje użytkownika po nazwie i haśle
 }

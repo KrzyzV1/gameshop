@@ -3,6 +3,7 @@ import { useShoppingCart } from "../context/ShoppingCartContext";
 import { formatCurrency } from "../utilities/formatCurrency";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext"; // Dodano useAuth
 
 type ShoppingCartProps = {
   isOpen: boolean;
@@ -24,7 +25,8 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
     removeFromCart,
   } = useShoppingCart();
   const [storeItems, setStoreItems] = useState<StoreItem[]>([]);
-  
+
+  const { isLoggedIn } = useAuth(); // Dodano sprawdzenie logowania
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,6 +45,14 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
 
   const clearCart = () => {
     cartItems.forEach((item) => removeFromCart(item.id));
+  };
+
+  const handleCheckout = () => {
+    if (!isLoggedIn) {
+      navigate("/login", { state: { from: "/payment" } }); // Przechodzi do logowania, pamiętając cel
+    } else {
+      navigate("/payment"); // Przechodzi bezpośrednio do płatności
+    }
   };
 
   return (
@@ -82,13 +92,20 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
                     -
                   </Button>
                   <span className="mx-2">{cartItem.quantity}</span>
-                  <Button
-                    variant="outline-secondary"
-                    size="sm"
-                    onClick={() => increaseCartQuantity(cartItem.id)}
-                  >
-                    +
-                  </Button>
+				  <Button
+				    variant="outline-secondary"
+				    size="sm"
+				    onClick={() => {
+				      if (!isLoggedIn) {
+				        alert("Musisz się zalogować, aby dodać produkt do koszyka.");
+				        return;
+				      }
+				      increaseCartQuantity(cartItem.id);
+				    }}
+				  >
+				    +
+				  </Button>
+
                   <Button
                     variant="danger"
                     size="sm"
@@ -121,7 +138,13 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
 		  <Button
 		    variant="primary"
 		    className="mt-3"
-		    onClick={() => navigate("/payment")}
+		    onClick={() => {
+		      if (!isLoggedIn) {
+		        navigate("/login"); // Przekierowanie na stronę logowania
+		      } else {
+		        navigate("/payment"); // Przekierowanie na stronę płatności
+		      }
+		    }}
 		  >
 		    Przejdź do płatności
 		  </Button>

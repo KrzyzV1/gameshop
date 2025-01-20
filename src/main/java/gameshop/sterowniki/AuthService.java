@@ -1,11 +1,17 @@
 package gameshop.sterowniki;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AuthService {
-    public boolean authenticate(String username, String password) {
-        // Tu możesz dodać logikę weryfikacji użytkowników, np. odczyt z bazy danych
-        return "user".equals(username) && "password".equals(password);
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public Optional<Users> authenticate(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username, password);
     }
 }

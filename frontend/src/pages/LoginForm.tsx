@@ -1,26 +1,43 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext"; // Import kontekstu
-import { login } from "../api/api";
+import { login as apiLogin } from "../api/api"; // Import funkcji API
 
 export function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const { login: setLoggedIn } = useAuth(); // Funkcja do ustawienia logowania
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const { login: setLoggedIn } = useAuth(); // Funkcja do ustawienia logowania w AuthContext
+  
+  const loginUser = async (username: string, password: string) => {
     try {
-      await login({ username, password });
-      setMessage("Zalogowano pomyślnie");
-      setLoggedIn(); // Ustawienie stanu globalnego
-      navigate("/"); // Przekierowanie
+      const response = await fetch("/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setLoggedIn(data.role); // Ustawienie stanu logowania za pomocą funkcji z kontekstu
+        alert("Zalogowano pomyślnie");
+        navigate("/"); // Przejdź na stronę główną lub dowolną inną
+      } else {
+        alert("Nieprawidłowe dane logowania");
+      }
     } catch (error) {
-      setMessage("Wystąpił błąd podczas logowania");
+      console.error("Błąd logowania:", error);
+      alert("Wystąpił błąd podczas logowania.");
     }
   };
+
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); // Zapobiega przeładowaniu strony
+    await loginUser(username, password); // Wywołanie funkcji logowania
+  };
+
 
   return (
     <div className="container mt-5">
