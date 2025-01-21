@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { ShoppingCart } from "../components/ShoppingCart";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useAuth } from "../context/AuthContext";
 
 type ShoppingCartProviderProps = {
   children: ReactNode;
@@ -19,6 +20,7 @@ type ShoppingCartContext = {
   decreaseCartQuantity: (id: number) => void;
   removeFromCart: (id: number) => void;
   clearCart: () => void;
+  addToCart: (id: number) => void;
   cartQuantity: number;
   cartItems: CartItem[];
 };
@@ -30,6 +32,7 @@ export function useShoppingCart() {
 }
 
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
+  const { isLoggedIn } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
     "shopping-cart",
@@ -101,7 +104,6 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     });
   }
 
-  
   function removeFromCart(id: number) {
     setCartItems((currItems) => {
       return currItems.filter((item) => item.id !== id);

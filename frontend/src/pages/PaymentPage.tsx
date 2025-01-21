@@ -11,14 +11,14 @@ type StoreItem = {
 };
 
 export default function PaymentPage() {
-  const { cartItems, clearCart } = useShoppingCart(); // Dodano clearCart
+  const { cartItems, clearCart } = useShoppingCart();
   const navigate = useNavigate();
   const [storeItems, setStoreItems] = useState<StoreItem[]>([]);
 
   useEffect(() => {
     async function fetchStoreItems() {
       try {
-        const response = await fetch("/games"); // Pobierz dane produktów
+        const response = await fetch("/games");
         const data = await response.json();
         setStoreItems(data);
       } catch (error) {
@@ -31,8 +31,8 @@ export default function PaymentPage() {
 
   const handlePayment = () => {
     alert("Płatność zrealizowana! Dziękujemy za zakupy.");
-    clearCart(); // Opróżnij koszyk
-    navigate("/"); // Powrót na stronę główną
+    clearCart();
+    navigate("/");
   };
 
   if (cartItems.length === 0) {
@@ -59,8 +59,8 @@ export default function PaymentPage() {
         </thead>
         <tbody>
           {cartItems.map((cartItem) => {
-            const product = storeItems.find((item) => item.id === cartItem.id); // Znajdź pełne dane produktu
-            if (!product) return null; // Pomijamy, jeśli produktu nie znaleziono
+            const product = storeItems.find((item) => item.id === cartItem.id);
+            if (!product) return null;
             return (
               <tr key={cartItem.id}>
                 <td>{product.name}</td>

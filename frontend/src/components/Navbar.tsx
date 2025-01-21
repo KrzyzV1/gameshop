@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { Navbar as NavbarBs, Nav, Button, Container } from "react-bootstrap";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { useAuth } from "../context/AuthContext";
-import { StatusLogowania } from "./StatusLogowania"; // Import komponentu StatusLogowania
+import { StatusLogowania } from "./StatusLogowania";
 
 export function Navbar() {
   const { openCart, cartQuantity } = useShoppingCart();
@@ -28,7 +28,7 @@ export function Navbar() {
           <StatusLogowania />
           {isLoggedIn ? (
             <>
-              {/* Ukryj koszyk dla administratora */}
+              {/* Ukrycie koszyka dla administratora */}
               {userRole !== "admin" && (
                 <Button
                   onClick={openCart}

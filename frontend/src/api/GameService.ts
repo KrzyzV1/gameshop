@@ -5,7 +5,7 @@ export async function getGames() {
   if (!response.ok) {
     throw new Error("Failed to fetch games");
   }
-  return response.json(); // Oczekiwany wynik: [{ id, quantity, name, price, imgUrl }]
+  return response.json();
 }
 
 export async function addGame(game: { quantity: number; name: string; price: number; imgUrl: string }) {

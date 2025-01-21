@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { EditProductForm } from "./forms/EditProductForm"; // Upewnij się, że ścieżka jest poprawna
+import { EditProductForm } from "./EditProductForm";
 import { StoreItem } from "./StoreItem";
 
 type Product = {

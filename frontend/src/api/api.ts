@@ -33,7 +33,7 @@ export const login = async (credentials: { username: string; password: string })
     throw new Error("Nieprawidłowe dane logowania");
   }
   return {
-    token: response.data.token, // Jeśli backend zwraca token
-    role: response.data.role,   // Zakładamy, że backend zwraca rolę w odpowiedzi
+    token: response.data.token,
+    role: response.data.role,
   };
 };

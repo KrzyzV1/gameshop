@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext"; // Import kontekstu
-import { login as apiLogin } from "../api/api"; // Import funkcji API
+import { useAuth } from "../context/AuthContext";
+import { login as apiLogin } from "../api/api";
 
 export function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const { login: setLoggedIn } = useAuth(); // Funkcja do ustawienia logowania w AuthContext
+  const { login: setLoggedIn } = useAuth();
 
   const loginUser = async (username: string, password: string) => {
     try {
@@ -20,9 +20,9 @@ export function LoginForm() {
 
       if (response.ok) {
         const data = await response.json();
-        setLoggedIn(data.role); // Przekazanie roli do kontekstu
+        setLoggedIn(data.role);
         alert("Zalogowano pomyślnie");
-        navigate("/"); // Przekierowanie na stronę główną
+        navigate("/");
       } else {
         alert("Nieprawidłowe dane logowania");
       }
@@ -33,8 +33,8 @@ export function LoginForm() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); // Zapobiega przeładowaniu strony
-    await loginUser(username, password); // Wywołanie funkcji logowania
+    e.preventDefault();
+    await loginUser(username, password);
   };
 
   return (

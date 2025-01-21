@@ -111,4 +111,3 @@ Hasło: haslo
 ## Autor
 
 Damian Pasek
-github: KrzyzV1

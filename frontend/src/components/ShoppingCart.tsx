@@ -3,7 +3,7 @@ import { useShoppingCart } from "../context/ShoppingCartContext";
 import { formatCurrency } from "../utilities/formatCurrency";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext"; // Dodano useAuth
+import { useAuth } from "../context/AuthContext";
 
 type ShoppingCartProps = {
   isOpen: boolean;
@@ -26,7 +26,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
   } = useShoppingCart();
   const [storeItems, setStoreItems] = useState<StoreItem[]>([]);
 
-  const { isLoggedIn } = useAuth(); // Dodano sprawdzenie logowania
+  const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,8 +40,11 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
       }
     }
 
-    fetchStoreItems();
-  }, []);
+    if (isOpen) {
+      fetchStoreItems();
+    }
+  }, [isOpen]);
+
 
   const clearCart = () => {
     cartItems.forEach((item) => removeFromCart(item.id));
@@ -49,9 +52,9 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
 
   const handleCheckout = () => {
     if (!isLoggedIn) {
-      navigate("/login", { state: { from: "/payment" } }); // Przechodzi do logowania, pamiętając cel
+      navigate("/login", { state: { from: "/payment" } });
     } else {
-      navigate("/payment"); // Przechodzi bezpośrednio do płatności
+      navigate("/payment"); 
     }
   };
 
@@ -140,9 +143,9 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
 		    className="mt-3"
 		    onClick={() => {
 		      if (!isLoggedIn) {
-		        navigate("/login"); // Przekierowanie na stronę logowania
+		        navigate("/login");
 		      } else {
-		        navigate("/payment"); // Przekierowanie na stronę płatności
+		        navigate("/payment");
 		      }
 		    }}
 		  >

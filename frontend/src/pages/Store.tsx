@@ -18,16 +18,16 @@ export function Store() {
   const [editingGame, setEditingGame] = useState<Game | null>(null);
   const { userRole } = useAuth();
 
-  useEffect(() => {
-    async function fetchGames() {
-      try {
-        const data = await getGames();
-        setGames(data);
-      } catch (error) {
-        console.error("Failed to fetch games:", error);
-      }
+  const fetchGames = async () => {
+    try {
+      const data = await getGames();
+      setGames(data);
+    } catch (error) {
+      console.error("Failed to fetch games:", error);
     }
+  };
 
+  useEffect(() => {
     fetchGames();
   }, []);
 
