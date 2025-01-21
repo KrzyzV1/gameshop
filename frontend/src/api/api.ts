@@ -9,10 +9,16 @@ export const fetchGames = async () => {
 };
 
 // Dodawanie nowej gry
-export const addGame = async (game: any) => {
-    const response = await axios.post(API_BASE_URL, [game]);
+export const addGame = async (game: { name: string; price: number; quantity: number; imgUrl: string }) => {
+    const response = await axios.post("/games", game, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
     return response.data;
 };
+
+
 
 // Usuwanie gry
 export const deleteGame = async (id: any) => {

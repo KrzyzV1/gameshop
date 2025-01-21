@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -32,8 +33,8 @@ public class GameController {
 	}
 	
 	@PostMapping("")
-	public int add(@RequestBody List<Game> games) {
-		return gameRepository.save(games);
+	public int add(@RequestBody Game game) {
+	    return gameRepository.save(Collections.singletonList(game)); // Zamiast listy, pojedynczy obiekt
 	}
 	
 	@PutMapping("/{id}")
