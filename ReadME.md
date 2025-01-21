@@ -38,76 +38,77 @@ Aby uruchomić aplikację lokalnie, wykonaj poniższe kroki:
 
 ### 1. Konfiguracja Bazy Danych
 
-Należy zainstalować docker oraz narzędzie do zarzadzania bazą danych ( w przypadku tego projektu był to MySQL Workbench)
-z dockerhub pobrać obraz mysql(terminal gameshop): docker pull mysql
-aktywacja kontenera: docker run --name gameshop-mysql -e MYSQL_ROOT_PASSWORD=ezio -d -p 3306:3306 mysql
-Należy dodać nowe połączenie w MySQL Workbench
-hasło do bazy: ezio
-dodać schema i wykonać w niej komendy zawarte w pliku .mysql w folderze gameshop.
+- Należy zainstalować docker oraz narzędzie do zarzadzania bazą danych ( w przypadku tego projektu był to MySQL Workbench)
+- Z dockerhub pobrać obraz mysql(terminal gameshop): docker pull mysql
+- Aktywacja kontenera: docker run --name gameshop-mysql -e MYSQL_ROOT_PASSWORD=ezio -d -p 3306:3306 mysql
+
+- Należy dodać nowe połączenie w MySQL Workbench
+- Hasło do bazy: ezio
+- Dodać schema i wykonać w niej komendy zawarte w pliku .mysql w folderze gameshop.
 
 ### 2. Instalacja Backend (Spring Boot)
 
-Wymagana jest instalacja maven i dodanie go do PATH
-Otworzyć terminal główny gameshop
-Uruchomić aplikację Spring Boot przy użyciu: mvn spring-boot:run
-Aplikacja backendowa będzie działać na porcie 8080
+- Wymagana jest instalacja maven i dodanie go do PATH
+- Otworzyć terminal główny gameshop
+- Uruchomić aplikację Spring Boot przy użyciu: mvn spring-boot:run
+- Aplikacja backendowa będzie działać na porcie 8080
 
 ### 3. Instalacja Frontend (React/TypeScript)
 
-Należy zainstalowac Node.js
-Uruchomić terminal gameshop/frontend
-Zainstalować potrzebne narzędzia node.js przy użyciu: npm install
-Uruchomić frontend wpisując: npm run dev
-Aplikacja frontendowa będzie dostępna pod adresem http://localhost:3000.
+- Należy zainstalowac Node.js
+- Uruchomić terminal gameshop/frontend
+- Zainstalować potrzebne narzędzia node.js przy użyciu: npm install
+- Uruchomić frontend wpisując: npm run dev
+- Aplikacja frontendowa będzie dostępna pod adresem http://localhost:3000.
 
 ## Endpointy
 
 ### 1. Endpointy dla użytkowników
 
-POST /auth/login: Logowanie użytkownika.
+- POST /auth/login: Logowanie użytkownika.
 
-Przyjmuje dane logowania: { username, password }
-Zwraca token JWT oraz rolę użytkownika.
-GET /games: Pobieranie wszystkich gier ze sklepu.
+- Przyjmuje dane logowania: { username, password }
+- Zwraca token JWT oraz rolę użytkownika.
+- GET /games: Pobieranie wszystkich gier ze sklepu.
 
-POST /cart: Dodawanie gry do koszyka.
+- POST /cart: Dodawanie gry do koszyka.
 
-Wymaga danych gry: { gameId, quantity }
-DELETE /cart/{gameId}: Usuwanie gry z koszyka.
+- Wymaga danych gry: { gameId, quantity }
+- DELETE /cart/{gameId}: Usuwanie gry z koszyka.
 
-POST /cart/clear: Opróżnianie koszyka.
+- POST /cart/clear: Opróżnianie koszyka.
 
-POST /checkout: Finalizacja zamówienia i przejście do płatności.
+- POST /checkout: Finalizacja zamówienia i przejście do płatności.
 
 ### 2. Endpointy dla administratorów
 
-POST /games: Dodawanie nowej gry.
+- POST /games: Dodawanie nowej gry.
 
-Wymaga danych gry: { name, price, quantity, imgUrl }
-PUT /games/{id}: Edytowanie gry.
+- Wymaga danych gry: { name, price, quantity, imgUrl }
+- PUT /games/{id}: Edytowanie gry.
 
-Wymaga danych gry: { name, price, quantity, imgUrl }
-DELETE /games/{id}: Usuwanie gry.
+- Wymaga danych gry: { name, price, quantity, imgUrl }
+- DELETE /games/{id}: Usuwanie gry.
 
 ## Technologie
 
-Backend: Spring Boot, Spring Data JPA, Java
-Frontend: React, TypeScript, Axios
-Autoryzacja: JWT (JSON Web Token)
-Baza danych: MySQL
+- Backend: Spring Boot, Spring Data JPA, Java
+- Frontend: React, TypeScript, Axios
+- Autoryzacja: JWT (JSON Web Token)
+- Baza danych: MySQL
 
 ## Dane logowania do aplikacji:
 
 ### 1. Administrator:
 
-Nazwa użytkownika: admin
-Hasło: haslo
+- Nazwa użytkownika: admin
+- Hasło: haslo
 
 ### 2. Użytkownik:
 
-Nazwa użytkownika: user
-Hasło: haslo
+- Nazwa użytkownika: user
+- Hasło: haslo
 
 ## Autor
 
-Damian Pasek
+- Damian Pasek
