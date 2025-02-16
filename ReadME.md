@@ -50,6 +50,7 @@ Aby uruchomić aplikację lokalnie, wykonaj poniższe kroki:
 
 - Wymagana jest instalacja maven i dodanie go do PATH
 - Otworzyć terminal główny gameshop
+- Zainstalować Maven w swoim projekcie używając komendy: mvn clean install
 - Uruchomić aplikację Spring Boot przy użyciu: mvn spring-boot:run
 - Aplikacja backendowa będzie działać na porcie 8080
 
