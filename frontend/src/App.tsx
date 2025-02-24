@@ -10,6 +10,7 @@ import { AddGameForm } from "./components/AddGameForm";
 import { useAuth } from "./context/AuthContext";
 import { useState, useEffect } from "react";
 import { getGames } from "./api/GameService";
+import { GameDetail } from "./pages/GameDetail";
 
 function App() {
   const { isLoggedIn, userRole } = useAuth();
@@ -37,18 +38,15 @@ function App() {
         <Routes>
           <Route path="/" element={<Store />} />
           <Route path="/about" element={<About />} />
+		  <Route path="/game/:id" element={<GameDetail />} />
           <Route path="/login" element={<LoginForm />} />
           {isLoggedIn && <Route path="/payment" element={<PaymentPage />} />}
-          <Route
-            path="/add-game"
-            element={
-              userRole === "admin" ? (
-                <AddGameForm onGameAdded={fetchGames} />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
-          />
+		  <Route
+		   path="/add-game"
+		   element={userRole === "admin" ? 
+			<AddGameForm onGameAdded={() => {}} /> : 
+			<Navigate to="/" />}
+		   />
         </Routes>
       </Container>
     </ShoppingCartProvider>

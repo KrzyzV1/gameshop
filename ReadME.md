@@ -53,6 +53,7 @@ Aby uruchomić aplikację lokalnie, wykonaj poniższe kroki:
 - Zainstalować Maven w swoim projekcie używając komendy: mvn clean install
 - Uruchomić aplikację Spring Boot przy użyciu: mvn spring-boot:run
 - Aplikacja backendowa będzie działać na porcie 8080
+- Może być też wymagana instalacja wtyczki lombok z oficjalnej strony project lombok
 
 ### 3. Instalacja Frontend (React/TypeScript)
 

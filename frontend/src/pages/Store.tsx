@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { StoreItem } from "../components/StoreItem";
+import { StoreItem, Game } from "../components/StoreItem";
 import { EditProductForm } from "../components/EditProductForm";
 import { getGames, updateGame, deleteGame } from "../api/GameService";
 import { useAuth } from "../context/AuthContext";
-
-type Game = {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  imgUrl: string;
-};
 
 export function Store() {
   const [games, setGames] = useState<Game[]>([]);

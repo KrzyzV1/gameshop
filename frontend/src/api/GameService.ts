@@ -1,52 +1,52 @@
+import axios from "axios";
+
 const API_BASE_URL = "/games";
 
 export async function getGames() {
-  const response = await fetch(API_BASE_URL);
-  if (!response.ok) {
-    throw new Error("Failed to fetch games");
-  }
-  return response.json();
+  const response = await axios.get(API_BASE_URL);
+  return response.data;
 }
 
-export async function addGame(game: { quantity: number; name: string; price: number; imgUrl: string }) {
-  const response = await fetch("/games", {
-    method: "POST",
+export async function getGameById(id: number) {
+  const response = await axios.get(`${API_BASE_URL}/${id}`);
+  return response.data;
+}
+
+export async function addGame(game: { 
+  name: string; 
+  price: number; 
+  quantity: number; 
+  imgUrl: string; 
+  rating: number; 
+  description: string; 
+  tags: string; 
+}) {
+  const response = await axios.post(API_BASE_URL, game, {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(game),
   });
-
-  if (!response.ok) {
-    const errorDetail = await response.json();
-    console.error("Błąd serwera:", errorDetail);
-    throw new Error(errorDetail.message || "Failed to add game");
-  }
-
-  return response.json();
+  return response.data;
 }
 
-
-export async function updateGame(id: number, game: { quantity: number; name: string; price: number; imgUrl: string }) {
-  const response = await fetch(`${API_BASE_URL}/${id}`, {
-    method: "PUT",
+export async function updateGame(id: number, game: { 
+  name: string; 
+  price: number; 
+  quantity: number; 
+  imgUrl: string; 
+  rating: number; 
+  description: string; 
+  tags: string; 
+}) {
+  const response = await axios.put(`${API_BASE_URL}/${id}`, game, {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(game),
   });
-  if (!response.ok) {
-    throw new Error("Failed to update game");
-  }
-  return response.json();
+  return response.data;
 }
 
 export async function deleteGame(id: number) {
-  const response = await fetch(`${API_BASE_URL}/${id}`, {
-    method: "DELETE",
-  });
-  if (!response.ok) {
-    throw new Error("Failed to delete game");
-  }
-  return response.json();
+  const response = await axios.delete(`${API_BASE_URL}/${id}`);
+  return response.data;
 }
