@@ -32,6 +32,12 @@ Jako **administrator** można uzyskać dostęp do opcji:
 - **Edytowania danych gier** (zmiana nazwy, ceny, ilości oraz adresu URL obrazu).
 - **Usuwania gier** ze sklepu.
 
+### 5. Filtrowanie i wyszukiwanie
+
+- Możliwość filtrowania gier według tagów (można wybrać parę tagów jednocześnie).
+- Wyszukiwanie gier po nazwie
+- Po kliknięciu na tytuł lub na miniaturę gry pokazuję się strona, ze szczegółowymi informacjami o produkcie
+
 ## Instalacja
 
 Aby uruchomić aplikację lokalnie, wykonaj poniższe kroki:
@@ -71,11 +77,11 @@ Aby uruchomić aplikację lokalnie, wykonaj poniższe kroki:
 
 - Przyjmuje dane logowania: { username, password }
 - Zwraca token JWT oraz rolę użytkownika.
+
 - GET /games: Pobieranie wszystkich gier ze sklepu.
 
 - POST /cart: Dodawanie gry do koszyka.
 
-- Wymaga danych gry: { gameId, quantity }
 - DELETE /cart/{gameId}: Usuwanie gry z koszyka.
 
 - POST /cart/clear: Opróżnianie koszyka.
@@ -86,10 +92,8 @@ Aby uruchomić aplikację lokalnie, wykonaj poniższe kroki:
 
 - POST /games: Dodawanie nowej gry.
 
-- Wymaga danych gry: { name, price, quantity, imgUrl }
 - PUT /games/{id}: Edytowanie gry.
 
-- Wymaga danych gry: { name, price, quantity, imgUrl }
 - DELETE /games/{id}: Usuwanie gry.
 
 ## Technologie
