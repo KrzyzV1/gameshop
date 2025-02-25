@@ -126,7 +126,7 @@ export function AddGameForm({ onGameAdded }: AddGameFormProps) {
           onChange={(e) => setRating(e.target.value)}
           min="0"
           max="10"
-          step="0.1"
+          step="0.5"
           required
         />
       </div>
